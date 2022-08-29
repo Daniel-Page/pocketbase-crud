@@ -23,12 +23,13 @@ const loadEntries = async () => {
   document.getElementById("buttons").innerHTML = textbox;
 }
 
-const addEntry = async () => {
+const createEntry = async () => {
   const client = new PocketBase('http://127.0.0.1:8090');
   const data = { "field": document.getElementById("entryText").value };
   const record = await client.records.create('posts', data);
-  document.getElementById("entryText").value = ""
+  document.getElementById("entryText").value = "";
   loadEntries();
+  document.getElementById("entryText").focus().select();
 }
 
 const deleteEntry = async (item) => {
@@ -51,5 +52,7 @@ const editEntry = async (item) => {
   
   const data = { "field": document.getElementById("entryText").value };
   const record = await client.records.update('posts', records[item].id, data);
+  document.getElementById("entryText").value = "";
   loadEntries();
+  document.getElementById("entryText").focus().select();
 }
