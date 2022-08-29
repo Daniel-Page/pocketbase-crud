@@ -1,9 +1,11 @@
+const address = "http://127.0.0.1:8090";
+
 window.onload = function() {
   loadEntries();
 };
 
 const loadEntries = async () => {
-  const client = new PocketBase('http://127.0.0.1:8090');
+  const client = new PocketBase(address);
 
   const records = await client.records.getFullList('posts', 200 /* batch size */, {
     sort: '-created',
@@ -24,7 +26,7 @@ const loadEntries = async () => {
 }
 
 const createEntry = async () => {
-  const client = new PocketBase('http://127.0.0.1:8090');
+  const client = new PocketBase(address);
   const data = { "field": document.getElementById("entryText").value };
   const record = await client.records.create('posts', data);
   document.getElementById("entryText").value = "";
@@ -33,7 +35,7 @@ const createEntry = async () => {
 }
 
 const deleteEntry = async (item) => {
-  const client = new PocketBase('http://127.0.0.1:8090');
+  const client = new PocketBase(address);
 
   const records = await client.records.getFullList('posts', 200 /* batch size */, {
     sort: '-created',
@@ -44,7 +46,7 @@ const deleteEntry = async (item) => {
 }
 
 const editEntry = async (item) => {
-  const client = new PocketBase('http://127.0.0.1:8090');
+  const client = new PocketBase(address);
 
   const records = await client.records.getFullList('posts', 200 /* batch size */, {
     sort: '-created',
